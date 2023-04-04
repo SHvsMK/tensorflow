@@ -1263,9 +1263,9 @@ tf_cc_shared_object(
 tf_cc_shared_library(
     name = "tensorflow_cc",
     additional_linker_inputs = [
-        "//tensorflow:tf_exported_symbols.lds",
-        "//tensorflow:tf_private_symbols.lds",
-        "//tensorflow:tf_version_script.lds",
+        ":tf_exported_symbols.lds",
+        ":tf_private_symbols.lds",
+        ":tf_version_script.lds",
     ],
     dynamic_deps = select({
         "//tensorflow:macos": ["//tensorflow:libtensorflow_framework.%s.dylib" % VERSION],
@@ -1289,20 +1289,9 @@ tf_cc_shared_library(
     roots = [
         "//tensorflow/c:c_api",
         "//tensorflow/c/eager:c_api",
-        "//tensorflow/c/experimental/filesystem:filesystem_interface",
-        "//tensorflow/c/experimental/stream_executor",
         "//tensorflow/cc:cc_ops",
         "//tensorflow/cc:client_session",
         "//tensorflow/cc:scope",
-        "//tensorflow/cc/saved_model:fingerprinting_impl",
-        "//tensorflow/cc/saved_model:loader_lite_impl",
-        "//tensorflow/cc/saved_model:metrics_impl",
-        "//tensorflow/compiler/xla/stream_executor:stream_executor_impl",
-        "//tensorflow/core:framework_internal_impl",
-        "//tensorflow/core:lib_internal_impl",
-        "//tensorflow/core/common_runtime:core_cpu_impl",
-        "//tensorflow/core/common_runtime/gpu:gpu_runtime_impl",
-        "//tensorflow/core/common_runtime/pluggable_device:pluggable_device_runtime_impl",
         "//tensorflow/core:tensorflow",
         "//tensorflow/core/data:standalone",
         # Exports for pywrap_tensorflow_internal. Many of these are transitive
@@ -1421,6 +1410,10 @@ tf_cc_shared_library(
         "//tensorflow/lite:util",
         "//tensorflow/python/grappler:cost_analyzer_lib",
         "//tensorflow/tools/graph_transforms:transform_graph_lib",
+        "//tensorflow/core/lib/wav:wav_io",
+        "//tensorflow/core/framework:kernel_shape_util",
+        "//tensorflow/core/kernels/batching_util:batch_resource_base",
+        "//tensorflow/core/common_runtime/eager:custom_device",
     ] + (tf_monitoring_python_deps() +
          tf_additional_plugin_deps() +
          tf_additional_profiler_deps()) + if_xla_available([
@@ -1509,7 +1502,7 @@ genrule(
 #     https://docs.microsoft.com/en-us/cpp/build/linking-an-executable-to-a-dll?view=vs-2017#linking-implicitly
 filegroup(
     name = "get_tensorflow_dll_import_lib",
-    srcs = ["//tensorflow:tensorflow.dll"],
+    srcs = [":tensorflow.dll"],
     output_group = "interface_library",
     visibility = ["//visibility:public"],
 )

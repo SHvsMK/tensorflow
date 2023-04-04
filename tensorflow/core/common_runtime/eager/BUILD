@@ -106,7 +106,6 @@ tf_cuda_library(
         ":custom_device",
         ":eager_executor",
         ":kernel_and_device",
-        ":small_constants_optimizer",
         "//tensorflow/c:tf_tensor_internal",
         "//tensorflow/c/eager:immediate_execution_context",
         "//tensorflow/c/eager:immediate_execution_distributed_manager",
@@ -152,7 +151,7 @@ tf_cuda_library(
         "custom_device.h",
         "custom_device_op_handler.h",
     ],
-    visibility = ["//tensorflow:internal"],
+    visibility = ["//tensorflow:__subpackages__"],
     deps = select({
         "//tensorflow:android": [
             "//tensorflow/core:portable_tensorflow_lib_lite",
@@ -446,16 +445,6 @@ cc_library(
         ":tensor_handle",
         "//tensorflow/core:framework",
         "//tensorflow/core:lib",
-        "//tensorflow/core:protos_all_cc",
-    ],
-)
-
-cc_library(
-    name = "small_constants_optimizer",
-    srcs = ["small_constants_optimizer.cc"],
-    hdrs = ["small_constants_optimizer.h"],
-    visibility = ["//tensorflow:internal"],
-    deps = [
         "//tensorflow/core:protos_all_cc",
     ],
 )

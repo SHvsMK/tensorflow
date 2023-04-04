@@ -871,6 +871,9 @@ cc_library(
     name = "kernel_shape_util",
     srcs = ["kernel_shape_util.cc"],
     hdrs = ["kernel_shape_util.h"],
+    visibility = [
+        "//tensorflow:__subpackages__",
+    ],
     deps = [
         ":tensor",
         ":tensor_shape",

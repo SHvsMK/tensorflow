@@ -8,7 +8,7 @@ load(
 
 package(
     # copybara:uncomment default_applicable_licenses = ["//tensorflow:license"],
-    default_visibility = ["//tensorflow/core:__pkg__"],
+    default_visibility = ["//tensorflow:__subpackages__"],
     licenses = ["notice"],
 )
 
