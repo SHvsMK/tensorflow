@@ -1263,9 +1263,9 @@ tf_cc_shared_object(
 tf_cc_shared_library(
     name = "tensorflow_cc",
     additional_linker_inputs = [
-        ":tf_exported_symbols.lds",
-        ":tf_private_symbols.lds",
-        ":tf_version_script.lds",
+        "//tensorflow:tf_exported_symbols.lds",
+        "//tensorflow:tf_private_symbols.lds",
+        "//tensorflow:tf_version_script.lds",
     ],
     dynamic_deps = select({
         "//tensorflow:macos": ["//tensorflow:libtensorflow_framework.%s.dylib" % VERSION],
@@ -1502,7 +1502,7 @@ genrule(
 #     https://docs.microsoft.com/en-us/cpp/build/linking-an-executable-to-a-dll?view=vs-2017#linking-implicitly
 filegroup(
     name = "get_tensorflow_dll_import_lib",
-    srcs = [":tensorflow.dll"],
+    srcs = ["//tensorflow:tensorflow.dll"],
     output_group = "interface_library",
     visibility = ["//visibility:public"],
 )
