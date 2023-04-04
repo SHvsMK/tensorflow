@@ -1288,7 +1288,6 @@ tf_cc_shared_library(
     per_os_targets = True,
     roots = [
         "//tensorflow/c:c_api",
-        "//tensorflow/c:env",
         "//tensorflow/c:kernels",
         "//tensorflow/c:kernels_experimental",
         "//tensorflow/c:logging",
